@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para vos 💙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:Poppins, sans-serif;
+    background:radial-gradient(circle at bottom,#0b0f2a 0%,#02030a 70%);
+    color:white;
+}
+
+/* ESTRELLAS */
+
+.stars, .stars2, .stars3{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:url('https://www.transparenttextures.com/patterns/stardust.png');
+    background-repeat:repeat;
+}
+
+.stars{ animation:move 200s linear infinite; opacity:1; }
+.stars2{ animation:move 400s linear infinite reverse; opacity:.5; transform:scale(1.5); }
+.stars3{ animation:move 600s linear infinite; opacity:.25; transform:scale(2); }
+
+@keyframes move{
+    from{background-position:0 0;}
+    to{background-position:-4000px 4000px;}
+}
+
+/* SILUETA PAREJA — NUEVA IMAGEN */
+
+
+
+.siluetas{
+    position:fixed;
+    top:50%;
+    left:0;
+    width:100%;
+    transform:translateY(-50%);
+    pointer-events:none;
+    z-index:0;
+}
+
+.sil{
+    position:absolute;
+    height:65vh;
+    filter:brightness(0);
+    opacity:.28;
+}
+
+/* Izquierda */
+.s1{
+    left:5%;
+    transform:translateY(-50%);
+}
+
+/* Centro */
+.s2{
+    left:50%;
+    transform:translate(-50%, -50%);
+}
+
+/* Derecha */
+.s3{
+    right:5%;
+    transform:translateY(-50%);
+}
+/* ESCENAS */
+
+.scene{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    opacity:0;
+    pointer-events:none;
+    transition:1.2s ease;
+}
+
+.scene.active{
+    opacity:1;
+    pointer-events:auto;
+}
+
+h1{
+    font-family:'Great Vibes', cursive;
+    font-size:78px;
+    text-shadow:0 0 25px #ff8ed6;
+}
+
+p{
+    font-size:24px;
+    max-width:750px;
+    line-height:1.6;
+    text-shadow:0 0 12px rgba(255,255,255,.4);
+}
+
+button{
+    margin-top:40px;
+    padding:16px 36px;
+    font-size:20px;
+    border:none;
+    border-radius:40px;
+    background:linear-gradient(45deg,#ff7ad9,#6bc5ff);
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.12);
+    box-shadow:0 0 30px #ff7ad9;
+}
+
+.answer-buttons{
+    display:flex;
+    gap:20px;
+}
+
+/* CORAZONES */
+
+.heart{
+    position:absolute;
+    font-size:22px;
+    color:#ff6bb0;
+    animation:floatUp 6s linear forwards;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(0);opacity:1;}
+    to{transform:translateY(-600px);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+<div class="siluetas">
+    <img src="pareja1.png" class="sil s1">
+    <img src="pareja2.png" class="sil s2">
+    <img src="pareja3.png" class="sil s3">
+</div>
+
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
+<div class="couple"></div>
+
+<audio id="music" src="Those Eyes-New West.mp3" loop></audio>
+
+<!-- ESCENA 1 -->
+<div class="scene active" id="s1">
+    <p id="typeText"></p>
+    <button onclick="nextScene(2)">Continuar ✨</button>
+</div>
+
+<!-- ESCENA 2 -->
+<div class="scene" id="s2">
+    <p>En solo un mes…<br>
+    te volviste una de las personas más importantes para mí.</p>
+    <button onclick="nextScene(3)">Continuar ✨</button>
+</div>
+
+<!-- ESCENA 3 -->
+<div class="scene" id="s3">
+    <p>Hay algo que me gustaría haberte dicho mejor…<br>
+    Algo que merecía un momento especial…</p>
+    <button onclick="nextScene(4)">Continuar ✨</button>
+</div>
+
+<!-- ESCENA 4 -->
+<div class="scene" id="s4">
+    <h1>¿Puedo ser tu novio?</h1>
+    <div class="answer-buttons">
+        <button onclick="yes()">Sí ❤️</button>
+        <button onclick="yes()">Obvio que sí 😏</button>
+    </div>
+</div>
+
+<!-- ESCENA 5 -->
+<div class="scene" id="s5">
+    <h1>Feliz primer mes, amor 💕</h1>
+    <p>Gracias por este mes increíble.<br>
+    Y por todos los que vienen.</p>
+
+    <p style="margin-top:30px">
+    Julián 💌<br>
+    27 de enero
+    </p>
+
+    <button onclick="nextScene(6)">Un último mensaje 💌</button>
+</div>
+
+<!-- ESCENA 6 -->
+<div class="scene" id="s6">
+    <p>Gracias por decir que sí aquel día…<br>
+    incluso cuando no lo dije de la forma más romántica.</p>
+</div>
+
+<script>
+
+const text = "Hace un tiempo… apareció alguien en mi vida…\nY todo empezó a cambiar…";
+let i = 0;
+
+function typeWriter(){
+    if(i < text.length){
+        document.getElementById("typeText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+    }
+}
+typeWriter();
+
+function nextScene(num){
+    document.querySelectorAll(".scene").forEach(s=>s.classList.remove("active"));
+    document.getElementById("s"+num).classList.add("active");
+
+    document.getElementById("music").play().catch(()=>{});
+}
+
+function yes(){
+    nextScene(5);
+    hearts();
+}
+
+function hearts(){
+    for(let i=0;i<50;i++){
+        let h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="❤";
+        h.style.left=Math.random()*100+"%";
+        h.style.bottom="-20px";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),6000);
+    }
+}
+
+</script>
+
+</body>
+</html>
