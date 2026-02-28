@@ -143,6 +143,29 @@ button:hover{
     from{transform:translateY(0);opacity:1;}
     to{transform:translateY(-600px);opacity:0;}
 }
+
+/* 📱 SOLO UNA SILUETA EN CELULAR */
+@media (max-width: 768px){
+
+    /* Ocultar izquierda y derecha */
+    .s1,
+    .s3{
+        display:none;
+    }
+
+    /* Ajustar la del centro */
+    .s2{
+        left:50%;
+        transform:translate(-50%, -50%);
+        height:42vh;
+        opacity:.30;
+    }
+
+    /* Bajar un poco el grupo */
+    .siluetas{
+        top:60%;
+    }
+}
 </style>
 </head>
 
@@ -251,3 +274,4 @@ function hearts(){
 
 </body>
 </html>
+
